@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+require ('./chatModel')
 
 const userSchema = new mongoose.Schema({
         
     email: {
         type: String,
+        unique: true,
         required: true,
     },
     fullName: {
@@ -12,34 +14,31 @@ const userSchema = new mongoose.Schema({
     },
     password:{
         type: String,
-        required: true,
+        select: false,
     },
     avatar: {
       type: String,
     },
   chats : [{
  
-   chat: {type:mongoose.Schema.Types.ObjectId,
-   ref:'msg'
+   chat: {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:'chat'
   },
-        isSent: {
-    type: Boolean,
-    required: false,
-},
-isRecieved: {
-   type: Boolean,
-   default : false
-},
-isFavorite: {
-   type: Boolean,
-   default : false
-},
-isDeleted: {
-   type: Boolean,
-   default : false
-},
-}]
-     
+  isSent: Boolean,
+        isRecieved: Boolean,
+        isFavorite: Boolean,
+        isDeleted: Boolean,
+        isDraft: Boolean,
+        isRead: { type: Boolean, default: false },
+        labels: [String]
+   
+
+}],
+isActive: {
+  type: Boolean,
+  default: true
+} 
   });
   
   const userModel = mongoose.model("user", userSchema);

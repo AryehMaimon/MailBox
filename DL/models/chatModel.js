@@ -1,4 +1,22 @@
 const mongoose = require('mongoose');
+require('./userModel')
+const msgSchema = new mongoose.Schema({
+    
+    
+   from: {
+    type:mongoose.Schema.Types.ObjectId,
+        ref:'user',
+        required: true,
+    },
+    date: {
+     type: Date,
+     default : Date.now
+    },
+    content:{
+        type: String,
+    },
+    
+  });
 
 const chatSchema = new mongoose.Schema({
     
@@ -6,15 +24,13 @@ const chatSchema = new mongoose.Schema({
       type: String,
       required: true,
    },
-    to: [
+   msg:[msgSchema],
+
+    members: [
     {type:mongoose.Schema.Types.ObjectId,
    ref:'user'}
    ],
    
-     msg:[
-       {type:mongoose.Schema.Types.ObjectId,
-      ref:'msg'}
-   ],
      lastDate: {
       type: Date,
 

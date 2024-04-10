@@ -11,8 +11,8 @@ async function create(data) {
 
 
 // get all chats:
-async function read() {
-    let chats = await chatModel.find();
+async function read(filter) {
+    let chats = await chatModel.find(filter);
     return chats;
 }
 
